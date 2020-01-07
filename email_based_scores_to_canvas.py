@@ -106,7 +106,13 @@ def main ():
             prepared = req.prepare()
             # pretty_print_POST(prepared)
             s = requests.Session()
-            return s.send(prepared)
+            response = s.send(prepared)
+            if response.ok:
+                print("OK! RESPONSE:")
+                print(response.text)
+            else:  # failure case
+                print("fail")
+                print(response.status_code)
         
 
 
@@ -125,11 +131,4 @@ def main ():
         sys.exit(1)
 
 if __name__ == "__main__":
-    response = main()
-    if response.ok:
-        # if VERBOSE:
-        print("RESPONSE:")
-        print(response.text)
-    else:  # failure case
-        print("fail")
-        print(response.status_code)
+    main()
